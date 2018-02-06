@@ -1,0 +1,28 @@
+.thumbnail img{
+    width: 60%; 
+}
+
+#thumb-showpage{
+    padding: 0;
+}
+
+.thumbnail .caption-full{
+    padding: 9px;
+}
+
+.delete-form{
+    display: inline;
+}
+
+#book-image-showpage{
+    width:50%;
+}
+
+#bookname-indexpage{
+    height: 20px;
+}
+
+#book-image-indexpage{
+    height:250px;
+    width:200px;
+}

@@ -1,0 +1,105 @@
+<% include ../partials/header %>
+<div class="comtainer">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="panel panel-default text-center">
+                <div class="panel-heading"><h4>Do you like this book ?</h4></div>
+                <div class="panel-body">
+                    <form action="/books/<%= book._id %>" method="PUT">
+                        <div class="col-md-6">
+                            <button type="submit" class="glyphicon glyphicon-thumbs-up btn btn-primary btn-lg" name="like" value="<%= book.like %>"> Like</button>
+                            <h3><%= book.like %></h3>
+                        </div>
+                        <div class="col-md-6">
+                            <button class="glyphicon glyphicon-thumbs-down btn btn-primary btn-lg" name="dislike" value="<%= book.dislike %>"> Disike</button>
+                            <h3><%= book.dislike %></h3>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-9">
+            <div class="thumbnail" id="thumb-showpage">
+                <img class="img-responsive"src="<%= book.image %>" id="book-image-showpage">
+                <div class="caption-full">
+                    <h4 class="pull-right">$ <%= Number(book.price).toFixed(2) %></h4>
+                    <h4><a class="text-capitalize"><%= book.name %></a></h4>
+                    <p class="text-capitalize"><em>Written by <%= book.bookAuthor %></em></p>
+                    <p><%= book.description %></p>
+                    <p>
+                        <em>Submitted by <%= book.author.username %></em>
+                    </p>
+                    <% if(currentUser && book.author.id.equals(currentUser._id)){ %>
+                        <a class="btn btn-warning" href="/books/<%= book._id %>/edit">Edit</a>
+                        <form action="/books/<%= book._id %>?_method=DELETE" method="POST" class="delete-form">
+                            <button class="btn btn-danger">Delete</button>
+                        </form>
+                    <% } %>
+                </div>
+            </div>
+            <div class="well">
+                <div class="text-right">
+                    <a class="btn btn-success" href="/books/<%= book._id %>/comments/new">Add New Commnet</a>
+                </div>
+                <hr>
+                <div>
+                    <% book.comments.forEach(function(comment){ %>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p><strong><%= comment.author.username %></strong></p>
+                            <p><%= comment.text %></p>
+                            <p><em><%= comment.created.toDateString().substring(4,7)+"/"+comment.created.toDateString().substring(8,10)+"/"+ comment.created.toDateString().substring(11,15) %></em></p>
+                            <% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
+                                <a  class="btn btn-xs btn-warning" 
+                                    href="/books/<%= book._id %>/comments/<%= comment._id %>/edit">
+                                Edit</a>
+                                <form action="/books/<%= book._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST" class="delete-form">
+                                    <button class="btn btn-xs btn-danger">Delete</button>
+                                </form>
+                            <% } %>
+                        </div>
+                    </div>
+                    <% }) %> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+
+<!-- jQuery CDN -->
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    var clicked = false;
+    // var rate = 0;
+    $("form .glyphicon").click(function(e){
+        e.preventDefault();
+        var choose = $(this);
+        var name = choose.attr("name");
+        var value = Number(choose.val());
+        var url = choose.parent().parent().attr("action");
+        if(!clicked){
+            value++;
+            var data = {};
+            data.book = {};
+            data["book"][name] = value;
+            $.ajax({
+              url:url,
+              data:data,
+              type:"PUT",
+              success:function(receiveData){
+                choose.next().text(receiveData.value);
+                $(".panel-heading").html("<h4>Than you !</h4>");
+                
+                choose.removeClass("btn-primary");
+                choose.addClass("btn-success");
+              }
+            });
+        }
+        clicked = true;
+    });
+</script>
+   
+<% include ../partials/footer %>

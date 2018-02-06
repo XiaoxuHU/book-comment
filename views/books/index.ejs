@@ -1,0 +1,44 @@
+<% include ../partials/header %>
+<div class="container">
+    <header class="jumbotron">
+        <div class="container">
+            <h1>Welcome to BookComment</h1>
+            <p>View our book from all over the world</p>
+            <p>
+                <a class="btn btn-primary btn-large"href="/books/new">Add New Book</a>
+            </p>
+        </div>
+    </header>
+    
+    <div class="row text-center" style="display:flex;flex-wrap:wrap">
+        <% books.forEach(function(book){ %>
+            <div class="col-md-3 col-sm-6">
+                <div class="thumbnail" data-toggle="popover" data-placement="top" 
+                    title="<%= book.name %>" data-content="<%= book.description.substring(0,100) %>" data-trigger="hover">
+                    <img src="<%= book.image%>" id="book-image-indexpage"> 
+                    <div class="caption">
+                      <h4 id="bookname-indexpage" class="text-capitalize"><%= book.name %></h4>  
+                    </div>
+                    <p>
+                        <a href="/books/<%= book._id %>" class="btn btn-primary">More Info</a>
+                    </p>
+                </div>
+            </div>
+        <% }); %>
+    </div>
+</div>   
+
+<!-- jQuery and BootStrap CDN -->
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+  
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" 
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" 
+        crossorigin="anonymous"></script>
+<script>
+    $(function () { $("[data-toggle='popover']").popover(); });
+    $('[data-toggle="popover"]').popover({
+    container: 'body'
+    });
+</script>
+
+<% include ../partials/footer %>

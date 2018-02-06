@@ -1,0 +1,15 @@
+#landing-header{
+    z-index: 1;
+    text-align: center;
+    margin: 25vh auto;
+    width:35%;
+}
+#landing-header h1{
+    color: DimGray;
+}
+
+body{
+    background-image: url(http://wallpaperswide.com/download/drinking_coffee_while_reading-wallpaper-3000x2000.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
