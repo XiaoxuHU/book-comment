@@ -13,8 +13,7 @@
     <div class="row text-center" style="display:flex;flex-wrap:wrap">
         <% books.forEach(function(book){ %>
             <div class="col-md-3 col-sm-6">
-                <div class="thumbnail" data-toggle="popover" data-placement="top" 
-                    title="<%= book.name %>" data-content="<%= book.description.substring(0,100) %>" data-trigger="hover">
+                <div class="thumbnail">
                     <img src="<%= book.image%>" id="book-image-indexpage"> 
                     <div class="caption">
                       <h4 id="bookname-indexpage" class="text-capitalize"><%= book.name %></h4>  
@@ -27,18 +26,5 @@
         <% }); %>
     </div>
 </div>   
-
-<!-- jQuery and BootStrap CDN -->
-<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-  
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" 
-        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" 
-        crossorigin="anonymous"></script>
-<script>
-    $(function () { $("[data-toggle='popover']").popover(); });
-    $('[data-toggle="popover"]').popover({
-    container: 'body'
-    });
-</script>
 
 <% include ../partials/footer %>
