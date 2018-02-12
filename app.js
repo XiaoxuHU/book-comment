@@ -17,7 +17,9 @@ var commentRoutes = require("./routes/comments"),
 // seedDB();
 
 //mongoose.connect("mongodb://localhost/book_comment");
-mongoose.connect("mongodb://xiaoxu:hxx199329@ds229918.mlab.com:29918/book_comment");
+//mongoose.connect("mongodb://xiaoxu:hxx199329@ds229918.mlab.com:29918/book_comment");
+mongoose.connect(process.env.databaseURL); 
+
 app.use(bodyParser.urlencoded({extended:true}));
 app.set("view engine","ejs");
 app.use(express.static(__dirname+"/public"));
