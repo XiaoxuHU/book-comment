@@ -18,7 +18,8 @@ var commentRoutes = require("./routes/comments"),
 
 //mongoose.connect("mongodb://localhost/book_comment");
 //mongoose.connect("mongodb://xiaoxu:hxx199329@ds229918.mlab.com:29918/book_comment");
-mongoose.connect(process.env.databaseURL); 
+var url = process.env.databaseURL || "mongodb://localhost/book_comment";
+mongoose.connect(url); 
 
 app.use(bodyParser.urlencoded({extended:true}));
 app.set("view engine","ejs");
